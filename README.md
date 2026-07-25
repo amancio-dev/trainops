@@ -1,125 +1,87 @@
-# [AdminLTE - Bootstrap 4 Admin Dashboard](https://adminlte.io)
+# TrainOps
 
-[![npm version](https://img.shields.io/npm/v/admin-lte/latest.svg)](https://www.npmjs.com/package/admin-lte)
-[![Packagist](https://img.shields.io/packagist/v/almasaeed2010/adminlte.svg)](https://packagist.org/packages/almasaeed2010/adminlte)
-[![cdn version](https://data.jsdelivr.com/v1/package/npm/admin-lte/badge)](https://www.jsdelivr.com/package/npm/admin-lte)
-[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/from-referrer/)
+Plataforma de gestão de treinamentos corporativos, pessoas e orçamento. Esta versão substitui o antigo PHP procedural/AdminLTE por uma aplicação Laravel moderna com React e TypeScript.
 
-**AdminLTE** is a fully responsive administration template. Based on **[Bootstrap 4.6](https://getbootstrap.com/)** framework and also the JS/jQuery plugin.
-Highly customizable and easy to use. Fits many screen resolutions from small mobile devices to large desktops.
+## Stack
 
-**Preview on [AdminLTE.io](https://adminlte.io/themes/v3)**
+- Laravel 13 e PHP 8.3+
+- Inertia 3, React 19 e TypeScript
+- Tailwind CSS 4 e componentes Radix UI
+- Laravel Fortify com recuperação de senha, verificação de e-mail, 2FA e passkeys
+- SQLite para desenvolvimento; MySQL/MariaDB ou PostgreSQL em produção
 
-## Looking for Premium Templates?
+## Funcionalidades
 
-AdminLTE.io just opened a new premium templates page. Hand picked to ensure the best quality and the most affordable
-prices. Visit <https://adminlte.io/premium> for more information.
+- Dashboard com colaboradores ativos, treinamentos, conclusão e utilização do orçamento
+- Gestão de colaboradores com papéis `admin`, `manager` e `viewer`
+- Catálogo de cursos, modalidades e cargos
+- Fluxo de treinamento: planejado, aprovado, em andamento, concluído ou cancelado
+- Composição detalhada de custos e vínculo ao orçamento anual
+- Alertas ao atingir 80% do orçamento
+- Busca, filtros, paginação e exportação CSV
+- Auditoria de criação, edição e exclusão de dados
+- Tema claro/escuro e layout responsivo
 
-!["AdminLTE Presentation"](https://adminlte.io/AdminLTE3.png "AdminLTE Presentation")
+## Instalação local
 
-**AdminLTE** has been carefully coded with clear comments in all of its JS, SCSS and HTML files.
-SCSS has been used to increase code customizability.
+Pré-requisitos: PHP 8.3+, Composer 2, Node.js 22+ e as extensões PHP exigidas pelo Laravel.
 
-## Quick start
-There are multiple ways to install AdminLTE.
-
-### Download & Changelog:
-Always Recommended to download from GitHub latest release [AdminLTE 3](https://github.com/ColorlibHQ/AdminLTE/releases/latest) for bug free and latest features.\
-Visit the [releases](https://github.com/ColorlibHQ/AdminLTE/releases) page to view the changelog.\
-Legacy Releases are [AdminLTE 2](https://github.com/ColorlibHQ/AdminLTE/releases/tag/v2.4.18) / [AdminLTE 1](https://github.com/ColorlibHQ/AdminLTE/releases/tag/1.3.1).
-
-## Stable release
-### Grab from [jsdelivr](https://www.jsdelivr.com/package/npm/admin-lte) CDN:
-_**Important Note**: You needed to add separately cdn links for plugins in your project._
-```html
-<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
-```
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
-```
-### Using The Command Line:
-_**Important Note**: To install it via npm/Yarn, you need at least Node.js 10 or higher._
-#### Via npm
 ```bash
-npm install admin-lte@^3.1 --save
+cp .env.example .env
+composer setup
+php artisan db:seed
+composer dev
 ```
-#### Via Yarn
+
+O seeder cria o primeiro administrador. Defina `TRAINOPS_ADMIN_EMAIL` e `TRAINOPS_ADMIN_PASSWORD` no `.env`. Se a senha não for informada, uma senha aleatória será exibida uma única vez no terminal.
+
+Para MySQL, altere no `.env`:
+
+```dotenv
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=trainops
+DB_USERNAME=trainops
+DB_PASSWORD=uma-senha-forte
+```
+
+## Qualidade
+
 ```bash
-yarn add admin-lte@^3.1
-```
-#### Via Composer
-```bash
-composer require "almasaeed2010/adminlte=~3.1"
-```
-#### Via Git
-```bash
-git clone https://github.com/ColorlibHQ/AdminLTE.git
+npm run lint:check
+npm run format:check
+npm run types:check
+composer test
+composer audit
 ```
 
-## Unstable release
-### Grab from [jsdelivr](https://www.jsdelivr.com/package/npm/admin-lte) CDN:
-_**Important Note**: You needed to add separately cdn links for plugins in your project._
-```html
-<script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1.0/dist/js/adminlte.min.js"></script>
-```
-```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1.0/dist/css/adminlte.min.css">
-```
-### Using The Command Line:
-_**Important Note**: To install it via npm/Yarn, you need at least Node.js 10 or higher._
-#### Via npm
-```bash
-npm install admin-lte@^3.1.0 --save
-```
-#### Via Yarn
-```bash
-yarn add admin-lte@^3.1.0
-```
-#### Via Composer
-```bash
-composer require "almasaeed2010/adminlte=~3.1.0"
-```
-#### Via Git
-```bash
-git clone https://github.com/ColorlibHQ/AdminLTE.git
-```
+O CI executa tipagem TypeScript, ESLint, Prettier, Laravel Pint, Larastan nível 7, PHPUnit e auditoria das dependências.
 
-## Documentation
+## Migração da versão antiga
 
-Visit the [online documentation](https://adminlte.io/docs/3.1/) for the most
-updated guide. Information will be added on a weekly basis.
+O dump original foi removido da árvore atual porque continha dados pessoais e hashes SHA-1. O mapeamento das tabelas está documentado em `database/legacy/README.md`.
 
-## Browsers support
+Recomenda-se migrar dados com um comando dedicado que:
 
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari-ios/safari-ios_48x48.png" alt="iOS Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>iOS Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/samsung-internet/samsung-internet_48x48.png" alt="Samsung" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Samsung | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/vivaldi/vivaldi_48x48.png" alt="Vivaldi" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Vivaldi | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/electron/electron_48x48.png" alt="Electron" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Electron |
-| --------- | --------- | --------- | --------- | --------- | --------- | --------- | --------- | --------- |
-| IE10, IE11, Edge| last 2 versions| last 2 versions| last 2 versions| last 2 versions| last 2 versions| last 2 versions| last 2 versions| last 2 versions
+1. normalize valores monetários para `decimal`;
+2. remapeie usuários, cargos, cursos, modalidades, orçamentos e treinamentos;
+3. invalide as senhas SHA-1 e envie recuperação de senha;
+4. valide totais e chaves estrangeiras antes do corte.
 
-### Compile dist files
+Como o dump existiu no primeiro commit público, considere os dados expostos: redefina as senhas afetadas e, se necessário, remova o arquivo também do histórico Git com uma ferramenta de reescrita de histórico.
 
-To compile the dist files you need Node.js/npm, clone/download the repo then:
+Leia [SECURITY_AUDIT.md](SECURITY_AUDIT.md) antes de implantar.
 
-1. `npm install` (install npm deps)
-2. _Optional:_ `npm run dev` (developer mode, autocompile with browsersync support for live demo)
-3. `npm run production` (compile css/js files)
+## Implantação
 
+- `APP_ENV=production`, `APP_DEBUG=false` e HTTPS obrigatório;
+- cookies `secure`, `http_only` e `same_site=lax`;
+- banco, cache e filas com credenciais de privilégio mínimo;
+- backup criptografado e restauração testada;
+- `php artisan optimize` e `npm run build` durante a entrega;
+- execute migrações com `php artisan migrate --force`.
 
-## Contributing
+## Licença
 
-Please read through our [contributing guidelines](https://github.com/ColorlibHQ/AdminLTE/tree/master/.github/CONTRIBUTING.md). Included are directions for opening issues, coding standards, and notes on development.
-
-Editor preferences are available in the [editor config](https://github.com/twbs/bootstrap/blob/main/.editorconfig) for easy use in common text editors. Read more and download plugins at <https://editorconfig.org/>.
-
-
-## License
-
-AdminLTE is an open source project by [AdminLTE.io](https://adminlte.io) that is licensed under [MIT](https://opensource.org/licenses/MIT).
-AdminLTE.io reserves the right to change the license of future releases.
-
-## Image Credits
-
-- [Pixeden](http://www.pixeden.com/psd-web-elements/flat-responsive-showcase-psd)
-- [Graphicsfuel](https://www.graphicsfuel.com/2013/02/13-high-resolution-blur-backgrounds/)
-- [Pickaface](https://pickaface.net/)
-- [Unsplash](https://unsplash.com/)
-- [Uifaces](http://uifaces.com/)
+MIT.

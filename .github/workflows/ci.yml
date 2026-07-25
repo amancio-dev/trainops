@@ -1,63 +1,53 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - master
   pull_request:
-    branches:
-      - "**"
+  push:
+    branches: [main]
 
-env:
-  FORCE_COLOR: 2
+permissions:
+  contents: read
 
 jobs:
-  run:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      fail-fast: false
-      matrix:
-        node:
-          - "10.x"
-          - "12.x"
-          - "14.x"
-        os:
-          - "ubuntu-latest"
-          - "macos-latest"
-          - "windows-latest"
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
-      - name: Clone repository
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v5
 
-      - name: Use Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v2
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
         with:
-          node-version: ${{ matrix.node }}
+          php-version: '8.4'
+          coverage: none
 
-      - name: Get npm cache directory
-        id: npm-cache
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install PHP dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Prepare application
         run: |
-          echo "::set-output name=dir::$(npm config get cache)"
+          cp .env.example .env
+          php artisan key:generate
+          touch database/database.sqlite
+          php artisan migrate --force
 
-      - name: Set up npm cache
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.npm-cache.outputs.dir }}
-          key: ${{ runner.os }}-node-v${{ matrix.node }}-${{ hashFiles('package.json') }}-${{ hashFiles('package-lock.json') }}}
-          restore-keys: |
-            ${{ runner.os }}-node-v${{ matrix.node }}-${{ hashFiles('package.json') }}-${{ hashFiles('package-lock.json') }}
-            ${{ runner.os }}-node-v${{ matrix.node }}-
-
-      - name: Install npm dependencies
+      - name: Install frontend dependencies
         run: npm ci
 
-      - name: Build files
-        run: npm run compile
+      - name: Run quality checks
+        run: composer ci:check
 
-      - name: Run bundlewatch
-        run: npm run bundlewatch
-        if: startsWith(matrix.os, 'ubuntu') && startsWith(matrix.node, '14')
-        env:
-          BUNDLEWATCH_GITHUB_TOKEN: "${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}"
+      - name: Build frontend
+        run: npm run build
+
+      - name: Audit dependencies
+        run: |
+          composer audit --locked
+          npm audit --omit=dev
