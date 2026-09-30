@@ -1,6 +1,10 @@
+![TrainOps — Amancio.dev](.github/assets/banner.svg)
+
 # TrainOps
 
 Plataforma de gestão de treinamentos corporativos, pessoas e orçamento. Esta versão substitui o antigo PHP procedural/AdminLTE por uma aplicação Laravel moderna com React e TypeScript.
+
+[Tecnologias](#stack) · [Funcionalidades](#funcionalidades) · [Instalação](#instalação-local) · [Qualidade](#qualidade)
 
 ## Stack
 
