@@ -1,4 +1,4 @@
-![TrainOps — Amancio.dev](.github/assets/cover.svg)
+![TrainOps — Amancio.dev](.github/assets/cover.svg?v=923ba5f3b0)
 
 <div align="center">
 
