@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="240" viewBox="0 0 1200 240" role="img" aria-labelledby="title desc">
+  <title id="title">TrainOps — Treinamentos e orçamento</title>
+  <desc id="desc">Identidade visual de André Amancio em azul escuro, ciano e violeta, com formas de circuitos.</desc>
+  <defs>
+    <linearGradient id="base" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#08111e"/><stop offset="1" stop-color="#10182b"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#64e9ff"/><stop offset="1" stop-color="#9583ff"/>
+    </linearGradient>
+    <radialGradient id="halo"><stop stop-color="#64e9ff" stop-opacity=".13"/><stop offset="1" stop-color="#64e9ff" stop-opacity="0"/></radialGradient>
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0H0V30" fill="none" stroke="#9eb2d2" stroke-opacity=".07" stroke-width="1"/></pattern>
+    </defs>
+  <rect width="1200" height="240" rx="22" fill="url(#base)"/>
+    <rect x=".5" y=".5" width="1199" height="239" rx="21.5" fill="none" stroke="#28344d"/>
+    <rect x="756" y="1" width="443" height="238" rx="21" fill="url(#grid)"/>
+    <ellipse cx="1040" cy="139.2" rx="330" ry="240" fill="url(#halo)"/>
+    <path d="M24 32V208" stroke="url(#accent)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M940 239H1176" stroke="#64e9ff" stroke-opacity=".28"/>
+    <path d="M764 35h56l21 21h50M769 205h49l23-23h52M1116 49h29v32M1111 200h34v-28" fill="none" stroke="#64e9ff" stroke-opacity=".33" stroke-width="1.5"/>
+    <circle cx="891" cy="56" r="3" fill="#64e9ff"/><circle cx="893" cy="182" r="3" fill="#9583ff"/>
+    <rect x="76" y="34" width="75" height="28" rx="14" fill="#18243a" stroke="#64e9ff" stroke-opacity=".22"/>
+    <text x="113.5" y="54" fill="#aebed6" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="1">PROJETO</text><text x="75" y="128" fill="#f6f8ff" font-family="DejaVu Sans, Arial, sans-serif" font-size="60" font-weight="700" letter-spacing="-1.7">TrainOps</text><text x="78" y="175" fill="#c9d5e8" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" font-weight="400" letter-spacing="-.25">Treinamentos e orçamento</text><rect x="78" y="197" width="60" height="3" rx="1.5" fill="url(#accent)"/><text x="1123" y="219" fill="#8195b4" font-family="DejaVu Sans, Arial, sans-serif" font-size="18" font-weight="600" text-anchor="end" letter-spacing="2">01</text><circle cx="1018" cy="119" r="92" fill="none" stroke="#64e9ff" stroke-opacity=".08"/>
+    <rect x="924" y="48" width="187" height="141" rx="16" fill="#101d31" stroke="url(#accent)" stroke-width="1.5"/>
+    <path d="M925 79h185" stroke="#64e9ff" stroke-opacity=".25"/>
+    <circle cx="941" cy="64" r="3" fill="#64e9ff"/><circle cx="953" cy="64" r="3" fill="#9583ff"/>
+    <circle cx="965" cy="64" r="3" fill="#4a5971"/>
+    <rect x="942" y="95" width="52" height="73" rx="8" fill="#64e9ff" fill-opacity=".06" stroke="#64e9ff" stroke-opacity=".24"/>
+        <path d="M953 152v-16m14 16v-32m14 32v-44" stroke="url(#accent)" stroke-width="6" stroke-linecap="round"/>
+        <path d="M1013 101h78m-78 13h52m-52 34h42m-42 13h78" stroke="#687b99" stroke-width="3" stroke-linecap="round"/>
+        <rect x="1070" y="137" width="23" height="31" rx="7" fill="#64e9ff" fill-opacity=".1"/>
+        <path d="m1077 151 4 4 6-8" stroke="#64e9ff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
